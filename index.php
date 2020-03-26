@@ -13,7 +13,7 @@ $db = new Connection();
 	<body class="table-success">
 		<div class="container">
 			<h1 class="text-lg-center text-sm-center">Phone Book</h1>
-			<?php
+			<h3 class="text-primary text-center"><?php
 				if(isset($_POST['submit'])){
 					if(!empty($_POST['username']) && !empty($_POST['phone']) && !empty($_POST['address'] )){
 						$db->addContact($_POST['username'],$_POST['phone'],$_POST['address']);
@@ -22,7 +22,7 @@ $db = new Connection();
 						echo "All fields must be filled up!!";
 					}
 				}
-			?>
+			?></h3>
 			<form method="POST" action="" style="border: 2px solid black; padding: 20px; margin-right: 300px; margin-left: 300px;" class="form-group text-center">
 				<div class="input-group mb-3">
 					<div class="input-group-prepend">
