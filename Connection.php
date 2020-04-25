@@ -8,21 +8,22 @@ class Connection{
 	}
 
 	//get all contacts
-	public function getAllContacts(){
-		$statement = $this->conn->prepare("SELECT * FROM phonebook");
+	public function getAllContacts($user_id){
+		$statement = $this->conn->prepare("SELECT * FROM phonebook WHERE user_id='$user_id'");
 		$statement ->execute();
 		$data = $statement->fetchAll();
 		return $data;
 	}
 
 	//add a contact
-	public function addContact($username,$phone,$address){
-		$statement = $this->conn->prepare("INSERT INTO phonebook (username,phone,address) VALUES(:username,:phone,:address)");
+	public function addContact($username,$phone,$address,$user_id){
+		$statement = $this->conn->prepare("INSERT INTO phonebook (username,phone,address,user_id) VALUES(:username,:phone,:address,:user_id)");
 				$statement->execute(
 					array(
 						':username' => $username,
 						':phone' => $phone,
-						':address' => $address
+						':address' => $address,
+						':user_id' => $user_id
 					)
 				);
 	}
@@ -48,6 +49,20 @@ class Connection{
 	public function deleteContact($id){
 		$statement = $this->conn->prepare("DELETE FROM phonebook WHERE id=$id;");
 		$statement ->execute();
+	}
+
+	//insert data in database
+	public function insert($query,$array){
+		$statement = $this->conn->prepare($query);
+		$statement ->execute($array);	
+	}
+
+	//fetch data from database
+	public function fetch($query,$array){
+		$statement = $this->conn->prepare($query);
+		$statement ->execute($array);
+		$data = $statement->fetchAll();
+		return $data;
 	}
 
 }
